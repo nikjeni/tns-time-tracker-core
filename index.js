@@ -10,6 +10,6 @@ app.use(db);
 app.use(bodyParser.json());
 app.use('/users', userRoutes);
 
-app.listen(process.env.PORT | 2000, () => {
+app.listen(process.env.PORT | process.env.port | 2000, () => {
     console.log("Connected to server!!!!!");
 })
