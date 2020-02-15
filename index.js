@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { userRoutes } = require('./routes/user.routes');
+const mongoose = require('mongoose');
 
 var url = process.env.MONGODB_URL;
 
