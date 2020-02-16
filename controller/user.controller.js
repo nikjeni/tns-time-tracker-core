@@ -19,7 +19,6 @@ module.exports.login = async (req, res, next) => {
     console.log("requesr", req);
     try {
         let result = await validateUser(req.body);
-        console.log("login user logs", result);
         if (result) {
             return res.status(200).send("Logged in");
         } else {
