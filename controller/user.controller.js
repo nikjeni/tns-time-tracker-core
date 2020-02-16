@@ -18,6 +18,7 @@ module.exports.saveUser = async (req, res, next) => {
 module.exports.login = async (req, res, next) => {
     try {
         let result = await validateUser(req.body);
+        console.log("login user logs", result);
         if (result) {
             return res.status(200).send("Logged in");
         } else {
@@ -29,8 +30,10 @@ module.exports.login = async (req, res, next) => {
 }
 
 async function validateUser(user) {
+    console.log("validate user", user);
     try {
         let userRes = await UserModel.find({ email: user.email });
+        console.log("users rres", userRes);
         if (userRes.length > 0) {
             return "user already exists"
         } else {
