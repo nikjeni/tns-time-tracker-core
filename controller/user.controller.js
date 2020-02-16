@@ -16,6 +16,7 @@ module.exports.saveUser = async (req, res, next) => {
 }
 
 module.exports.login = async (req, res, next) => {
+    console.log("requesr", req);
     try {
         let result = await validateUser(req.body);
         console.log("login user logs", result);
