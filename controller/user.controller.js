@@ -7,13 +7,13 @@ module.exports.saveUser = async (req, res, next) => {
         let user = new UserModel(req.body);
         try {
             let result = await user.save();
-            if (result) { return res.status(200).send('User saved successfulyy') }
+            if (result) { return res.status(200).send({ "status": true, 'message': 'User saved successfulyy' }) }
         }
         catch (err) {
-            return res.status(500).send("Failed to save");
+            return res.status(500).send({ "status": false, "message": "Failed to save" });
         }
     } else {
-        return res.status(401).send("user already exists");
+        return res.status(401).send({ "status": false, "message": "user already exists" });
     }
 }
 
@@ -34,7 +34,6 @@ module.exports.login = async (req, res, next) => {
 }
 
 async function validateUser(user) {
-    console.log("user", user);
     try {
         let userRes = await UserModel.find({ email: user.email });
         if (userRes.length > 0) {
