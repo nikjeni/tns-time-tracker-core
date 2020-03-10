@@ -1,9 +1,6 @@
 const { StartTimeModel } = require('../model/starttime.model');
 const { EndTimeModel } = require('../model/endtime.model');
 const { BreakfastTimeModel } = require('../model/breakfasttime.model');
-const { lunchTimeModel } = require('../model/lunchtime.model');
-const { shortTimeModel } = require('../model/shorttime.model');
-
 
 module.exports.saveStartTime = async (req, res, next) => {
     let startTime = new StartTimeModel(req.body);
@@ -69,16 +66,6 @@ module.exports.fetchEndTime = async (req, res, next) => {
     } catch (err) {
         console.log(err);
         return res.status(500).send("Unable to fetch records");
-    }
-}
-
-module.exports.saveShortTime = async (req, res, next) => {
-    let shorttime = new shortTimeModel(req.body);
-
-    try {
-        await shorttime.save();
-    } catch (err) {
-        res.status(500).send("Unable to save short time");
     }
 }
 
