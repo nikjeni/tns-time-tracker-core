@@ -13,6 +13,9 @@ module.exports.jwtVerify = (req, res, next) => {
         // or if the signature does not match
         let secret_key = config.get('Customer.secretKey');
         let payload = jwt.verify(req.headers.authorization, secret_key);
+        if (payload) {
+            next();
+        }
     } catch (e) {
         if (e instanceof jwt.JsonWebTokenError) {
             // if the error thrown is because the JWT is unauthorized, return a 401 error
@@ -23,5 +26,4 @@ module.exports.jwtVerify = (req, res, next) => {
     }
     // Finally, return the welcome message to the user, along with their
     // username given in the token
-    next();
 }

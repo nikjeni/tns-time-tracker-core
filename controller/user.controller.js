@@ -7,7 +7,7 @@ module.exports.saveUser = async (req, res, next) => {
         let user = new UserModel(req.body);
         try {
             let result = await user.save();
-            if (result) { return res.status(200).send({ "status": true, 'message': 'User saved successfulyy' }) }
+            if (result) { return res.status(200).send({ "status": true, 'message': 'User registered successfully' }) }
         }
         catch (err) {
             return res.status(500).send({ "status": false, "message": "Failed to save" });
@@ -24,7 +24,7 @@ module.exports.login = async (req, res, next) => {
             let secret_key = config.get('Customer.secretKey');
             let useData = req.body.email;
             let token = jwt.sign({ sub: useData }, secret_key, { expiresIn: '1h' });
-            return res.status(200).send({ "message": "Logged in", "token": token });
+            return res.status(200).send({ "message": "Logged in", "token": token, userId: result._id });
         } else {
             return res.status(400).send("Invalid user");
         }
@@ -37,7 +37,7 @@ async function validateUser(user) {
     try {
         let userRes = await UserModel.find({ email: user.email });
         if (userRes.length > 0) {
-            return "user already exists"
+            return userRes[0]._doc;
         } else {
             return "";
         }
